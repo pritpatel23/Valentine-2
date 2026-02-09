@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Valentine ❤️</title>
+
+  <!-- CONFETTI LIBRARY -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd6e8, #ffeef6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+      z-index: 10;
+    }
+
+    h1 {
+      color: #ff4d88;
+    }
+
+    p {
+      color: #555;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #yesBtn {
+      background: #ff4d88;
+      color: white;
+    }
+
+    #noBtn {
+      background: #ddd;
+      position: absolute;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* FLOATING EMOJIS */
+    .emoji {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SCREEN 1 -->
+  <div class="card" id="screen1">
+    <h1>Hello Hii</h1>
+    <p>I made something for you.<br>Just trust me.</p>
+    <button id="yesBtn" onclick="goToQuestion()">Continue</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div class="card hidden" id="screen2">
+    <h1>So… 💕</h1>
+    <p>Will you be my Valentine on 15th feb? 🥹</p>
+    <button id="yesBtn" onclick="yesClicked()">Yes 😚</button>
+    <button id="noBtn" onmouseover="moveNo()">No 🙃</button>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div class="card hidden" id="screen3">
+    <h1>HEHEHEHEHE</h1>
+    <p>Best decision you’ve made today 😌<br>Happy Valentine’s Day My Saumewww 🥰</p>
+
+    <!-- 🔴 REPLACE THIS GIF LINK -->
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHNmOWZ1eDF3MTQwbWptNGh3OG42eDc1ZHcxcmF6cWVyYndyYTczdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IwAZ6dvvvaTtdI8SD5/giphy.gif">
+  </div>
+
+  <script>
+    function goToQuestion() {
+      screen1.classList.add("hidden");
+      screen2.classList.remove("hidden");
+    }
+
+    function yesClicked() {
+      screen2.classList.add("hidden");
+      screen3.classList.remove("hidden");
+
+      launchConfetti();
+      startEmojis();
+    }
+
+    function moveNo() {
+      const btn = document.getElementById("noBtn");
+      btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+      btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    }
+
+    // CONFETTI
+    function launchConfetti() {
+      confetti({
+        particleCount: 200,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // EMOJIS
+    const emojis = ["❤️","😋","😍","🥰","✨","🥳"];
+
+    function startEmojis() {
+      setInterval(() => {
+        const emoji = document.createElement("div");
+        emoji.className = "emoji";
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.fontSize = (20 + Math.random() * 20) + "px";
+        document.body.appendChild(emoji);
+
+        setTimeout(() => {
+          emoji.remove();
+        }, 6000);
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>
